@@ -11,8 +11,18 @@ jobs:
         - run: chromedriver -v
         - run: google-chrome --version
 
+        # Restore bundle cache
+        - type: cache-restore
+          key: bb_test-{{ checksum "Gemfile.lock" }}
+
         # Bundle install dependencies
         - run: bundle install --path vendor/bundle
+
+        # Store bundle cache
+        - type: cache-save
+          key: bb_test-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
 
         - run: bundle exec rake features:bvt || CUCUMBER_RERUN_FAILED=true bundle exec rake features:bvt
         - run: bundle exec rake features:p1 || CUCUMBER_RERUN_FAILED=true bundle exec rake features:p1
