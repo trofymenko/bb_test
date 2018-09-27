@@ -1,0 +1,62 @@
+# See full list of defaults here: https://github.com/bbatsov/rubocop/blob/master/config/default.yml
+# To see all cops used see here: https://github.com/bbatsov/rubocop/blob/master/config/enabled.yml
+
+AllCops:
+  TargetRubyVersion: 2.3
+  ExtraDetails: true
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  Include:
+      - Rakefile
+      - Gemfile
+
+LineLength:
+  Max: 120
+
+Layout/CaseIndentation:
+  Enabled: false
+
+Style/EmptyElse:
+  Enabled: false
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Style/CaseEquality:
+  Enabled: false
+
+Style/PredicateName:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Max: 150
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
