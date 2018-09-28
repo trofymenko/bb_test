@@ -29,7 +29,15 @@ Feature: Sign Up
       | email                | password | field    | alert                                                    |
       | user                 | pass1234 | email    | Hmm, looks like that email is not in the correct format. |
       | user@xyz             | pass1234 | email    | Hmm, looks like that email is not in the correct format. |
-      | user@x,za            | pass1234 | email    | Hmm, looks like that email is not in the correct format. |
-      | user@x@y.za          | pass1234 | email    | Hmm, looks like that email is not in the correct format. |
-      | user@x#y.za          | pass1234 | email    | Hmm, looks like that email is not in the correct format. |
-      | FACTORY_USER[:email] | pass1    | password | Password must contain at least 6 characters.             |
+      | user@x,za            | pass1234 | email    | Hmm, looks like that email isn't in the correct format.  |
+
+  @p2
+  Scenario: sign up with short password
+    Given login page of web application is opened
+    When I put next signup data and apply on login page
+      | login    | FACTORY_USER[:email] |
+      | password | pass1                |
+    Then I should see the following password error message on login page
+      """
+      Password must contain at least 6 characters.
+      """

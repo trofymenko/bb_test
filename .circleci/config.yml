@@ -5,7 +5,9 @@ jobs:
       working_directory: ~/bb_test
       docker:
         - image: circleci/ruby:2.4-node-browsers
-      parallelism: 1
+      parallelism: 2
+      environment:
+        CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       steps:
         - checkout
         - run: chromedriver -v
@@ -24,11 +26,13 @@ jobs:
           paths:
             - vendor/bundle
 
-        - run: bundle exec rake features:bvt || CUCUMBER_RERUN_FAILED=true bundle exec rake features:bvt
-        - run: bundle exec rake features:p1 || CUCUMBER_RERUN_FAILED=true bundle exec rake features:p1
-
+        - run: |
+            case $CIRCLE_NODE_INDEX in
+              0)
+                bundle exec rake features:bvt || CUCUMBER_RERUN_FAILED=true bundle exec rake features:bvt
+                bundle exec rake features:p2 || CUCUMBER_RERUN_FAILED=true bundle exec rake features:p1
+                ;;
+              1) bundle exec rake features:p1 || CUCUMBER_RERUN_FAILED=true bundle exec rake features:p2 ;;
+            esac
         - store_artifacts:
-            path: tmp/test-results
-
-        - store_artifacts:
-            path: tmp/capybara
+            path: /tmp/circleci-artifacts
