@@ -19,6 +19,7 @@
 ###########################################################
  user_agent: # if blank, then default agent
  page_load_idle_timeout: 20
+ window_size: 1280, 960
  maximized_window: false # Specify maximized browser window size
 
  # Specify one of the following drivers: selenium, selenium_grid, webkit, poltergeist, phantomjs, sauce,

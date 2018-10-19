@@ -53,6 +53,7 @@ Capybara.register_driver :selenium do |app|
   elsif CapybaraHelpers.chrome_browser?
     args = []
     args << "user-agent=#{Howitzer.user_agent}" if Howitzer.user_agent.present?
+    args << "window-size=#{Howitzer.window_size.delete(' ')}"
     args << '-disable-infobars'
     params[:args] = args
   end
