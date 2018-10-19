@@ -16,6 +16,15 @@ Feature: Sign Up
       |                      |                         | email    | Don't forget to enter your email address! |
 
   @p1
+  Scenario: forgotten password reset
+    Given login page of web application is opened
+    And I reset password for u97fq9usi@mg.strongqa.com email on login page
+    Then I should see the following successful message on login page
+      """
+      Password reset, email was sent to
+      """
+
+  @p1
   Scenario Outline: sign up with invalid data
     Given login page of web application is opened
     When I put next signup data and apply on login page
@@ -29,7 +38,7 @@ Feature: Sign Up
       | email                | password | field    | alert                                                    |
       | user                 | pass1234 | email    | Hmm, looks like that email is not in the correct format. |
       | user@xyz             | pass1234 | email    | Hmm, looks like that email is not in the correct format. |
-      | user@x,za            | pass1234 | email    | Hmm, looks like that email isn't in the correct format.  |
+      | user@x,za            | pass1234 | email    | Hmm, looks like that email is not in the correct format. |
 
   @p2
   Scenario: sign up with short password
