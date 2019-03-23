@@ -4,35 +4,35 @@ jobs:
   build:
     working_directory: ~/bb_test
     docker:
-    - image: circleci/ruby:2.4-node-browsers
+      - image: circleci/ruby:2.4-node-browsers
     parallelism: 2
     environment:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
     steps:
-    - checkout
-    - run: chromedriver -v
-    - run: google-chrome --version
+      - checkout
+      - run: chromedriver -v
+      - run: google-chrome --version
 
     # Restore bundle cache
-    - type: cache-restore
-      key: bb_test-{{ checksum "Gemfile.lock" }}
+      - restore-cache:
+          key: bb_test-{{ checksum "Gemfile.lock" }}
 
     # Bundle install dependencies
-    - run: bundle install --path vendor/bundle
+      - run: bundle install --path vendor/bundle
 
     # Store bundle cache
-    - type: cache-save
-      key: bb_test-{{ checksum "Gemfile.lock" }}
-      paths:
-      - vendor/bundle
+      - save-cache:
+          key: bb_test-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
 
-    - run: |
-        case $CIRCLE_NODE_INDEX in
-          0) bundle exec rake features:bvt || CUCUMBER_RERUN_FAILED=true bundle exec rake features:bvt ;;
-          1)
-            bundle exec rake features:p1 || CUCUMBER_RERUN_FAILED=true bundle exec rake features:p1
-            bundle exec rake features:p2 || CUCUMBER_RERUN_FAILED=true bundle exec rake features:p2
-            ;;
-        esac
-    - store_artifacts:
-        path: /tmp/circleci-artifacts
+      - run: |
+          case $CIRCLE_NODE_INDEX in
+            0) bundle exec rake features:bvt || CUCUMBER_RERUN_FAILED=true bundle exec rake features:bvt ;;
+            1)
+              bundle exec rake features:p1 || CUCUMBER_RERUN_FAILED=true bundle exec rake features:p1
+              bundle exec rake features:p2 || CUCUMBER_RERUN_FAILED=true bundle exec rake features:p2
+              ;;
+          esac
+      - store_artifacts:
+          path: /tmp/circleci-artifacts
