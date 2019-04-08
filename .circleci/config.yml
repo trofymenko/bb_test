@@ -29,10 +29,7 @@ jobs:
       - run: |
           case $CIRCLE_NODE_INDEX in
             0) bundle exec rake features:bvt || CUCUMBER_RERUN_FAILED=true bundle exec rake features:bvt ;;
-            1)
-              bundle exec rake features:p1 || CUCUMBER_RERUN_FAILED=true bundle exec rake features:p1
-              bundle exec rake features:p2 || CUCUMBER_RERUN_FAILED=true bundle exec rake features:p2
-              ;;
+            1) bundle exec rake features:p1p2 || CUCUMBER_RERUN_FAILED=true bundle exec rake features:p1p2 ;;
           esac
       - store_artifacts:
           path: /tmp/circleci-artifacts

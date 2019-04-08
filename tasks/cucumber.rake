@@ -39,6 +39,7 @@ namespace :features do
     bvt: '--tags @bvt --tags ~@wip --tags ~@bug',
     p1:  '--tags @p1 --tags ~@wip --tags ~@bug',
     p2:  '--tags @p2 --tags ~@wip --tags ~@bug',
+    p1p2: '--tags ~@bvt --tags ~@wip --tags ~@bug',
     wip: '--tags @wip --tags ~@bug',
     bug: '--tags @bug'
   }.each do |task_name, tags|
